@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Search - SkillBridge</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 60%;
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .course-list {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .course {
+            background-color: white;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .course h3 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+        }
+
+        .course p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .course a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .course a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Find Courses for you!</h1>
+    
+    <!-- Input for keyword search -->
+    <input type="text" id="keyword" placeholder="Enter a skill or topic (e.g. Python, Machine Learning)">
+    <button onclick="fetchCourses()">Search Courses</button>
+
+    <!-- Course list -->
+    <div id="course-list" class="course-list">
+        <!-- Dynamic content will be inserted here -->
+    </div>
+</div>
+
+<script>
+// Function to fetch courses based on user input
+function fetchCourses() {
+    const keyword = document.getElementById("keyword").value;
+    if (keyword.trim() === "") {
+        alert("Please enter a keyword to search for courses.");
+        return;
+    }
+    const apiURL = `http://localhost:5000/get_courses?keyword=${encodeURIComponent(keyword)}`;
+    // Fetch courses from the Flask API using GET method with query params
+    fetch(apiURL)
+        .then(response => response.json())
+        .then(data => {
+            displayCourses(data);
+        })
+        .catch(error => {
+            console.error("Error fetching courses:", error);
+            alert("An error occurred while fetching courses. Please try again.");
+        });
+}
+
+// Function to display fetched courses
+function displayCourses(courses) {
+    const courseList = document.getElementById("course-list");
+    courseList.innerHTML = '';  // Clear previous results
+
+    if (courses.length === 0) {
+        courseList.innerHTML = '<p>No courses found for the given keyword.</p>';
+        return;
+    }
+
+    // Loop through each course and create HTML elements to display it
+    courses.forEach((course, index) => {
+        const courseDiv = document.createElement("div");
+        courseDiv.classList.add("course");
+
+        courseDiv.innerHTML = `
+            <h3>${index + 1}. ${course.title}</h3>
+            <p><strong>Partner:</strong> ${course.partner}</p>
+            <p><strong>Rating:</strong> ${course.rating}</p>
+            <p><strong>Skills You'll Gain:</strong> ${course.skills}</p>
+            <p><strong>Level & Duration:</strong> ${course.level_duration}</p>
+            <p><a href="${course.link}" target="_blank">View Course</a></p>
+        `;
+
+        courseList.appendChild(courseDiv);
+    });
+}
+</script>
+
+</body>
+</html>

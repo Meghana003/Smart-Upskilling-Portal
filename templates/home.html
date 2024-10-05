@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillBridge - Empower Your Future</title>
+  <link rel="stylesheet" href="../static/styli.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <header>
+    <nav class="navbar">
+      <a href="{{ url_for('home') }}"><div class="brand-title">SkillBridge</div></a>
+      <a href="#" class="toggle-button">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </a>
+      <div class="navbar-links">
+        <ul>
+          <li><a href="{{ url_for('courses') }}" >Course Search</a></li>
+          <li><a href="{{ url_for('search') }}">Job Search</a></li>
+          <li><a href="#resume-builder">Resume Builder</a></li>
+          <li><a href="#community">Community</a></li>
+          <li><a href="{{ url_for('user') }}">Sign up!</a></li>
+
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Banner -->
+  <section class="banner">
+    <div class="banner-content">
+      <h1>Find the right job and upskill for your future</h1>
+      <p>Unlock your potential with SkillBridge – your personalized platform for jobs, training, and career support.</p>
+      <div class="banner-buttons">
+        <div class="card">
+          <a href="#competency-test" class="btn card-content">
+            <h3>Take Competency Test</h3>
+            <p>Discover your strengths and areas for improvement.</p>
+          </a>
+        </div>
+        <div class="card">
+          <a href="#community" class="btn card-content">
+            <h3>Join Community</h3>
+            <p>Connect with peers and career experts.</p>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 SkillBridge. All rights reserved.</p>
+  </footer>
+</body>
+</html>

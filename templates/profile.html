@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        /* Reset and basic styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Header styling */
+        header {
+            width: 100%;
+            background-color: #282828;
+            padding: 20px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-title {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .navbar-links ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .navbar-links li {
+            margin: 0 15px;
+        }
+
+        .navbar-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        .navbar-links a:hover {
+            color: #4CAF50;
+        }
+
+        .toggle-button {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 21px;
+            width: 30px;
+        }
+
+        .bar {
+            height: 3px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .toggle-button {
+                display: flex;
+            }
+
+            .navbar-links {
+                display: none;
+                width: 100%;
+            }
+
+            .navbar-links ul {
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .navbar-links li {
+                margin: 15px 0;
+            }
+
+            .navbar.active .navbar-links {
+                display: flex;
+            }
+        }
+
+        /* Main content area should take the available space */
+        main {
+            flex: 1; /* Allows the main content area to expand and fill the space */
+            padding-top: 80px; /* Adjust padding to prevent overlap with the fixed header */
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #282828;
+            padding: 20px 0;
+            color: #fff;
+            text-align: center;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 250px;
+            text-align: center;
+            margin: 20px 0; /* Space around cards */
+        }
+
+        .card img {
+            border-bottom: 1px solid #ddd; /* Optional: Add a border under the image */
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card h5 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            color: #030d0d;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="{{ url_for('home') }}"><div class="brand-title">SkillBridge</div></a>
+            <a href="#" class="toggle-button">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </a>
+            <div class="navbar-links">
+                <ul>
+                    <li><a href="#competency-test">Competency Test</a></li>
+                    <li><a href="{{ url_for('search') }}">Job Search</a></li>
+                    <li><a href="#community">Community</a></li>
+                    <!-- Trigger resume download when Resume Builder is clicked -->
+                    <li><a href="javascript:void(0)" onclick="generateResume()">Resume Builder</a></li>
+                    <li><a href="{{ url_for('user') }}">Sign up!</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main class="container mt-4">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="../static/dafuq.png" class="card-img-top" alt="Profile Picture">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ info['name'] }}</h5>
+                        <p class="card-text">{{ info['college'] }}</p>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h5 class="card-title">Contact Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <i class="bi bi-envelope"></i> johndoe@example.com
+                            </li>
+                            <li class="list-group-item">
+                                <i class="bi bi-telephone"></i> +1 (123) 456-7890
+                            </li>
+                            <li class="list-group-item">
+                                <i class="bi bi-linkedin"></i> linkedin.com/johndoe
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">About Me</h5>
+                        <p>{{ info['desc'] }}</p>
+                        <hr>
+                        <h5 class="card-title">Skills</h5>
+                        <ul class="list-inline">
+                            <li class="list-inline-item">{{ info['skills'] }}</li>
+                        </ul>
+                        <hr>
+                        <h5 class="card-title">Experience</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <p>{{ info['exp'] }}</p>
+                                <p>{{ info['education'] }}</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-light text-center text-lg-start">
+        <div class="container p-4">
+            <div class="row">
+                <div class="col-md-6 text-start">
+                    <span class="text-muted">&copy; 2024 Your Company</span>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="#" class="text-muted me-3"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-muted me-3"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="text-muted"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        function generateResume() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const name = document.querySelector('.card-title').innerText;
+            const college = document.querySelector('.card-text').innerText;
+            const aboutMe = document.querySelector('.card-body p').innerText;
+            const skills = document.querySelector('.list-inline-item').innerText;
+            const experience = document.querySelector('.list-group-item p:first-child').innerText;
+            const education = document.querySelector('.list-group-item p:last-child').innerText;
+            const email = document.querySelector('.list-group-item:nth-child(1)').innerText;
+            const phone = document.querySelector('.list-group-item:nth-child(2)').innerText;
+            const linkedin = document.querySelector('.list-group-item:nth-child(3)').innerText;
+
+            const content = `
+                Name: ${name}
+                College: ${college}
+                Email: ${email}
+                Phone: ${phone}
+                LinkedIn: ${linkedin}
+                \nAbout Me:\n${aboutMe}
+                \nSkills:\n${skills}
+                \nExperience:\n${experience}
+                \nEducation:\n${education}
+            `;
+
+            doc.text(content, 10, 10);
+            doc.save('resume.pdf');
+        }
+    </script>
+</body>
+</html>

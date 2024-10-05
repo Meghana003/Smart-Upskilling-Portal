@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Page</title>
+    <style>
+        /* Reset and basic styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        /* Header styling */
+        header {
+            width: 100%;
+            background-color: #282828;
+            padding: 20px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-title {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .navbar-links ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .navbar-links li {
+            margin: 0 15px;
+        }
+
+        .navbar-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        .navbar-links a:hover {
+            color: #4CAF50;
+        }
+
+        .toggle-button {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 21px;
+            width: 30px;
+        }
+
+        .bar {
+            height: 3px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .toggle-button {
+                display: flex;
+            }
+
+            .navbar-links {
+                display: none;
+                width: 100%;
+            }
+
+            .navbar-links ul {
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .navbar-links li {
+                margin: 15px 0;
+            }
+
+            .navbar.active .navbar-links {
+                display: flex;
+            }
+        }
+
+        /* Main content area should take the available space */
+        main {
+            flex: 1; /* Allows the main content area to expand and fill the space */
+            padding-top: 80px; /* Adjust padding to prevent overlap with the fixed header */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Form Container */
+        .form-container {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #007bff;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .form-group button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #282828;
+            padding: 20px 0;
+            color: #fff;
+            text-align: center;
+            width: 100%;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="{{ url_for('home') }}"><div class="brand-title">SkillBridge</div></a>
+            <a href="#" class="toggle-button">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </a>
+            <div class="navbar-links">
+                <ul>
+                    <li><a href="#competency-test">Competency Test</a></li>
+                    <li><a href="{{ url_for('search') }}">Job Search</a></li>
+                    <li><a href="#community">Community</a></li>
+                    <li><a href="#resume-builder">Resume Builder</a></li>
+                    <li><a href="{{ url_for('profile') }}">Sign up!</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="form-container">
+            <h2>Search for Jobs</h2>
+            <form action="{{ url_for('jobs') }}" method="post">
+                <div class="form-group">
+                    <label for="query">Search Query</label>
+                    <input type="text" id="query" name="query" placeholder="Enter your search query">
+                </div>
+                <div class="form-group">
+                    <button type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Your Company. All rights reserved.</p>
+    </footer>
+</body>
+</html>

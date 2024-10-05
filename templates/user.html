@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information Form</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            color: #333;
+        }
+        .header, .footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .header p {
+            margin: 5px 0 0;
+            font-size: 16px;
+        }
+        .form-container {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 700px;
+            margin: 20px auto;
+        }
+        .form-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #007bff;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            resize: vertical;
+        }
+        .form-group button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+        .footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Header styling */
+        header {
+            width: 100%;
+            background-color: #282828;
+            padding: 20px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-title {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .navbar-links ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .navbar-links li {
+            margin: 0 15px;
+        }
+
+        .navbar-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        .navbar-links a:hover {
+            color: #4CAF50;
+        }
+
+        .toggle-button {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 21px;
+            width: 30px;
+        }
+
+        .bar {
+            height: 3px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .toggle-button {
+                display: flex;
+            }
+
+            .navbar-links {
+                display: none;
+                width: 100%;
+            }
+
+            .navbar-links ul {
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .navbar-links li {
+                margin: 15px 0;
+            }
+
+            .navbar.active .navbar-links {
+                display: flex;
+            }
+        }
+
+        /* Main content area should take the available space */
+        main {
+            flex: 1; /* Allows the main content area to expand and fill the space */
+            padding-top: 80px; /* Adjust padding to prevent overlap with the fixed header */
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #282828;
+            padding: 20px 0;
+            color: #fff;
+            text-align: center;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 250px;
+            text-align: center;
+            margin: 20px 0; /* Space around cards */
+        }
+
+        .card img {
+            border-bottom: 1px solid #ddd; /* Optional: Add a border under the image */
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card h5 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            color: #030d0d;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <a href="{{ url_for('home') }}"><div class="brand-title">SkillBridge</div></a>
+            <a href="#" class="toggle-button">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </a>
+            <div class="navbar-links">
+                <ul>
+                    <li><a href="#competency-test">Competency Test</a></li>
+                    <li><a href="{{ url_for('search') }}">Job Search</a></li>
+                    <li><a href="#community">Community</a></li>
+                    <li><a href="#resume-builder">Resume Builder</a></li>
+                    <li><a href="{{ url_for('user') }}">Sign up!</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="form-container">
+        <h2>Personal Information</h2>
+        <form id="userForm" action="{{ url_for('profile') }}" method="post">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <small>Enter your full name.</small>
+            </div>
+            <div class="form-group">
+                <label for="college">College:</label>
+                <input type="text" id="college" name="college" required>
+                <small>Enter the name of the college you attended.</small>
+            </div>
+            <div class="form-group">
+                <label for="education">Education:</label>
+                <input type="text" id="education" name="education" required>
+                <small>what is your education level?</small>
+            </div>
+            <div class="form-group">
+                <label for="skills">Skills:</label>
+                <textarea id="skills" name="skills" required></textarea>
+                <small>List your relevant skills and areas of expertise.</small>
+            </div>
+            <div class="form-group">
+                <label for="additionalInfo">Additional Information:</label>
+                <textarea id="additionalInfo" name="additionalInfo"></textarea>
+                <small>Provide any additional comments or information you think might be relevant.</small>
+            </div>
+            <div class="form-group">
+                <label for="experience">Years of Experience:</label>
+                <input type="number" id="experience" name="experience" required>
+                <small>Enter the number of years you have been working in your field.</small>
+            </div>
+            <div class="form-group">
+                <label for="jobInterest">Job Interest:</label>
+                <input type="text" id="jobInterest" name="jobInterest" required>
+                <small>Describe the type of job you are interested in.</small>
+            </div>
+            <div class="form-group">
+                <label for="country">Country:</label>
+                <input type="text" id="country" name="country" required>
+                <small>Enter the country where you currently reside.</small>
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Your Company. All rights reserved. <br> Thank you for providing your information.</p>
+    </footer>
+
+</body>
+</html>
